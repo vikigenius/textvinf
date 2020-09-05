@@ -1,0 +1,59 @@
+[build-system]
+requires = ["poetry>=1.0"]
+build-backend = "poetry.masonry.api"
+
+
+[tool.nitpick]
+style = "https://raw.githubusercontent.com/wemake-services/wemake-python-styleguide/master/styles/nitpick-style-wemake.toml"
+
+
+[tool.poetry]
+name = "textvinf"
+version = "0.1.0"
+description = "Variational Inference for text with Normalizing Flows"
+license = "MIT"
+
+authors = []
+
+readme = "README.md"
+
+repository = "https://github.com/uwaterloo.ca/textvinf"
+
+keywords = []
+
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+[tool.poetry.scripts]
+textvinf = 'textvinf.cli:main'
+
+[tool.poetry.dependencies]
+python = "^3.7"
+allennlp = "1.1.0rc2"
+toml = "^0.10.1"
+pyro-ppl = "^1.4.0"
+torch = "^1.6.0"
+kenlm = {git = "https://github.com/kpu/kenlm.git"}
+
+[tool.poetry.dev-dependencies]
+mypy = "^0.782"
+
+wemake-python-styleguide = "^0.14.1"
+flake8-pytest-style = "^1.2"
+nitpick = "^0.22"
+
+safety = "^1.9"
+
+pytest = "^5.4"
+pytest-cov = "^2.10"
+pytest-randomly = "^3.4"
+
+sphinx = "^2.2"
+sphinx-autodoc-typehints = "^1.10"
+doc8 = "^0.8"
+m2r = "^0.2"
+tomlkit = "^0.6"
