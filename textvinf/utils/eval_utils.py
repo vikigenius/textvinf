@@ -102,7 +102,7 @@ class DecompositionEvaluator(Evaluator):
             dim=0
         ).mean(dim=0).squeeze()
 
-    def get_transfered_sentences(self, embedding_list, subspace_idx, subspace_target: str):
+    def get_transferred_sentences(self, embedding_list, subspace_idx, subspace_target: str):
         tsents = []
         rsents = []
         isents = []
