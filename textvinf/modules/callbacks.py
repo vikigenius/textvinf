@@ -23,21 +23,16 @@ class PrintReconstructionExample(EpochCallback):
     ):
         """Callback call implementation."""
         batch = next(iter(trainer._validation_data_loader))
-        pred_tokens = trainer.model.make_output_human_readable(
-            trainer.batch_outputs(batch, for_training=False),
-        )['predicted_tokens']
         outputs = trainer.model.make_output_human_readable(
                 trainer.batch_outputs(batch, for_training=False),
-        )['predicted_tokens']
+        )['predicted_sentences']
         idx = random.randrange(0, len(outputs))
 
         vocab = trainer.model.vocab
         removal_tokens = {START_SYMBOL, END_SYMBOL, vocab._padding_token}
 
-        pred_tokens = ' '.join(
-            token for token in outputs[idx] if token not in removal_tokens
-        )
-        text_tokens = ' '.join(
+        pred_sentence = outputs[idx]
+        source_sentence = ' '.join(
             [
                 vocab.get_token_from_index(tidx.item())
                 for tidx in batch['source_tokens']['tokens']['tokens'][idx]
@@ -45,7 +40,7 @@ class PrintReconstructionExample(EpochCallback):
             ],
         )
 
-        logger.info('{0} -> {1}'.format(text_tokens, pred_tokens))
+        logger.info('{0} -> {1}'.format(source_sentence, pred_sentence))
 
 
 @EpochCallback.register('print_generation_example')
@@ -60,12 +55,5 @@ class PrintGenerationExample(EpochCallback):
         is_master: bool,
     ):
         """Callback call implementation."""
-        pred_tokens = trainer.model.generate()
-        vocab = trainer.model.vocab
-        removal_tokens = {START_SYMBOL, END_SYMBOL, vocab._padding_token}
-        pred_tokens = ' '.join(
-            token
-            for token in trainer.model.generate()['predicted_tokens'][0]
-            if token not in removal_tokens
-        )
-        logger.info(pred_tokens)
+        pred_sentence = random.choice(trainer.model.generate()['predicted_sentence'])
+        logger.info(pred_sentence)

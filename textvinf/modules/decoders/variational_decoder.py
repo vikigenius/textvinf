@@ -244,7 +244,7 @@ class VariationalDecoder(Decoder):
         predicted_indices = output_dict['predictions']
         if not isinstance(predicted_indices, numpy.ndarray):
             predicted_indices = predicted_indices.detach().cpu().numpy()
-        all_predicted_tokens = []
+        all_predicted_sents = []
         for indices in predicted_indices:
             # Beam search gives us the top k results for each source sentence in the batch
             # but we just want the single best.
@@ -257,7 +257,8 @@ class VariationalDecoder(Decoder):
             predicted_tokens = [
                 self.vocab.get_token_from_index(x, namespace=self._target_namespace)
                 for x in indices
+                if x not in {self._start_index, self._end_index, self._pad_index}
             ]
-            all_predicted_tokens.append(predicted_tokens)
-        output_dict['predicted_tokens'] = all_predicted_tokens
+            all_predicted_sents.append(' '.join(predicted_tokens))
+        output_dict['predicted_sentences'] = all_predicted_sents
         return output_dict

@@ -31,6 +31,13 @@ To train download the ptblm dataset to the data folder or change the data locati
 allennlp train -s models/ptblmwaenf --include-package textvinf config/ptblm_wae_nf.jsonnet
 ```
 
+To generate sentences by sampling from the prior use:
+
+```bash
+textvinf generate models/ptblmwaenf/model.tar.gz --weights_file models/ptblmwaenf/model_state_epoch_47.th
+```
+
+
 ## License
 
 [MIT](https://github.com/uwaterloo.ca/textvinf/blob/master/LICENSE)

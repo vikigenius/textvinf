@@ -13,7 +13,7 @@ from allennlp.training.metrics import Average
 from torch import nn
 
 
-class VariationalEncoder(nn.Module, Registrable):  # type: ignore
+class VariationalEncoder(nn.Module, Registrable):
     """A VariationalEncoder base class.
 
     Parameters
@@ -31,7 +31,7 @@ class VariationalEncoder(nn.Module, Registrable):  # type: ignore
         encoder: Seq2VecEncoder,
         latent_dim: int,
     ) -> None:
-        super().__init__()
+        super().__init__()  # type: ignore
         self._text_field_embedder = text_field_embedder
         self._encoder = encoder
         self._latent_dim = latent_dim
