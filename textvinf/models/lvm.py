@@ -114,7 +114,7 @@ class LVM(Model):
 
     @overrides
     def get_metrics(self, reset: bool = False) -> Dict[str, float]:
-        """Retreive all metrics."""
+        """Retrieve all metrics."""
         all_metrics: Dict[str, float] = {}
         all_metrics.update(self._decoder.get_metrics(reset=reset))
         all_metrics.update(self._encoder.get_metrics(reset=reset))
